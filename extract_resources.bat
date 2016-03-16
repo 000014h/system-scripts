@@ -14,4 +14,4 @@ set os=WINDOWS_NT
 @echo off
 @echo ^<node name="%name%" description="%description%" tags="%tags%" hostname="%PCNAME%" osArch="%PROCESSOR_ARCHITECTURE%" osFamily="%os%" username="%username%@%userdnsdomain%"/^>
 
-@echo ^<node name="%name%" description="%description%" tags="%tags%" hostname="%PCNAME%" osArch="%PROCESSOR_ARCHITECTURE%" osFamily="%os%" username="%username%@%userdnsdomain%"/^> > output_resources.txt
+@echo ^<node name="%name%" description="%description%" tags="%tags%" hostname="%PCNAME%" osArch="%PROCESSOR_ARCHITECTURE%" osFamily="%os%" username="%username%@%userdnsdomain%"/^> > %PCNAME%.txt
