@@ -1,17 +1,34 @@
-@echo off
+@ECHO OFF
+
 FOR /F "usebackq" %%i IN (`hostname`) DO SET PCNAME=%%i
-REM @echo %PCNAME%
-REM @echo %userdomain%
-REM @echo %PROCESSOR_ARCHITECTURE%
-REM @echo %username%
-REM @echo %userdnsdomain%
+REM @ECHO %PCNAME%
+REM @ECHO %userdomain%
+REM @ECHO %PROCESSOR_ARCHITECTURE%
+REM @ECHO %username%
+REM @ECHO %userdnsdomain%
 
-set /p name=name: 
-set /p description=description: 
-set /p tags=tags: 
-set os=WINDOWS_NT
+IF EXIST %PCNAME%.txt del *.txt -y
 
-@echo off
-@echo ^<node name="%name%" description="%description%" tags="%tags%" hostname="%PCNAME%" osArch="%PROCESSOR_ARCHITECTURE%" osFamily="%os%" username="%username%@%userdnsdomain%"/^>
+REM SET /p name=name: 
+SET /p description=description: 
+SET /p tags=tags: 
+SET osFamily=Microsoft Windows Server 2012 R2 Standard
+SET osVersion=6.3.9600
 
-@echo ^<node name="%name%" description="%description%" tags="%tags%" hostname="%PCNAME%" osArch="%PROCESSOR_ARCHITECTURE%" osFamily="%os%" username="%username%@%userdnsdomain%"/^> > %PCNAME%.txt
+@ECHO   ^<node >> %PCNAME%.txt
+@ECHO     name="%PCNAME%" >> %PCNAME%.txt
+@ECHO     connectionType="WINRM_NATIVE" >> %PCNAME%.txt
+@ECHO     node-executor="overthere-winrm" >> %PCNAME%.txt
+@ECHO     winrm-password-option="winrmPassword" >> %PCNAME%.txt
+@ECHO     winrm-protocol="http" >> %PCNAME%.txt
+@ECHO     winrm-auth-type="kerberos" >> %PCNAME%.txt
+@ECHO     winrmPassword="12fjsepr!@" >> %PCNAME%.txt
+@ECHO     username="rundeck@%userdnsdomain%" >> %PCNAME%.txt
+@ECHO     description="%description%" >> %PCNAME%.txt
+@ECHO     tags="%tags%" >> %PCNAME%.txt
+@ECHO     hostname="%PCNAME%.%userdnsdomain%" >> %PCNAME%.txt
+@ECHO     osArch="%PROCESSOR_ARCHITECTURE%" >> %PCNAME%.txt
+@ECHO     osFamily="%osFamily%" >> %PCNAME%.txt
+@ECHO     osVersion="%osVersion%"/^> >> %PCNAME%.txt
+
+@ECHO Done.
