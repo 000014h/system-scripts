@@ -1,24 +1,44 @@
 ﻿#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-# Rundeck Node 추가를 위한 node resources data데이터 추출 프로그램
+"""
+===============================================================================
+리눅스용 Rundeck Node 정보 추출 프로그램
+
+author: harakhti@smilegate.com
+date: 2016-03-21
+result: <HOSTNAME>.json
+===============================================================================
+"""
+
 
 import os
+import json
+import pprint
 
-name = raw_input("node name: ")
 description = raw_input("description: ")
 tags = raw_input("tags: ")
+name = os.environ['COMPUTERNAME'].lower()
 hostname = os.environ['COMPUTERNAME'].lower()
 os_arch = os.environ['PROCESSOR_ARCHITEW6432'].upper()
 os_family = os.environ['OS'].upper()
-user_name = os.environ['USERNAME'] + '@' + os.environ['USERDNSDOMAIN']
+# username = os.environ['USERNAME'] + '@' + os.environ['USERDNSDOMAIN']
+username = 'rundeck' + '@' + os.environ['USERDNSDOMAIN']
 
-line = '<node name="{0}" description="{1}" tags="{2}" hostname="{3}" osArch="{4}" osFamily="{5}" username="{6}"/>'.format(name, description, tags, hostname, os_arch, os_family, user_name)
+node = {
+    "description":description,
+    "hostname":hostname,
+    "name":name,
+    "osArch":os_arch,
+    "osFamily":os_family,
+    "tags":tags,    
+    "username":username
+}
 
-filename = hostname+".xml"
-print filename
+context = json.dumps(node, sort_keys=True, indent=4, separators=(',',':'))
+print context
+context_data = json.loads(context)
+# print context_data
 
-print line
-file = open(filename, "w")
-file.writelines(line)
-file.close()
+with open(hostname+'.json', 'w') as file:        
+     json.dump(context_data, file, indent=4, separators=(',',':'), sort_keys=True)
