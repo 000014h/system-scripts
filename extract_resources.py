@@ -16,8 +16,8 @@ import os
 import json
 import pprint
 
-description = raw_input("description: ")
-tags = raw_input("tags: ")
+description = raw_input("Description <ENGLISH ONLY!>: ")
+tags = raw_input("Tags <ENGLISH ONLY!>: ")
 name = os.environ['COMPUTERNAME'].lower()
 hostname = os.environ['COMPUTERNAME'].lower()
 os_arch = os.environ['PROCESSOR_ARCHITEW6432'].upper()
