@@ -9,9 +9,8 @@ REM @ECHO %userdnsdomain%
 
 IF EXIST %PCNAME%.json del *.json -y
 
-REM SET /p name=name:  
-SET /p description=description: 
-SET /p tags=tags: 
+SET /p description=Description ^<ENGLISH ONLY!^>: 
+SET /p tags=Tags ^<ENGLISH ONLY!^>: 
 SET osFamily=Microsoft Windows Server 2012 R2 Standard
 SET osVersion=6.3.9600
 
